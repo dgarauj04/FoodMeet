@@ -65,7 +65,7 @@ http://localhost:5173
 
 ## 🌐 Link da Aplicação Publicada
 
-> 🔗 `[inserir link do Vercel/Netlify aqui após o deploy]`
+> 🔗 `https://food-meett.vercel.app/`
 
 ## 🤖 Uso de Inteligência Artificial
 
