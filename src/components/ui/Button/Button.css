@@ -30,7 +30,6 @@
   width: 100%;
 }
 
-/* Primary */
 .button--primary {
   background: var(--color-primary);
   color: #fff;
@@ -42,7 +41,6 @@
   box-shadow: 0 4px 12px rgba(255, 107, 53, 0.35);
 }
 
-/* Secondary */
 .button--secondary {
   background: var(--color-secondary);
   color: #fff;
@@ -54,7 +52,6 @@
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
 }
 
-/* Ghost */
 .button--ghost {
   background: var(--color-surface-alt);
   color: var(--color-text);
@@ -66,7 +63,6 @@
   transform: translateY(-1px);
 }
 
-/* Disabled */
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;

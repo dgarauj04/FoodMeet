@@ -26,6 +26,7 @@ Oferecer uma aplicação React responsiva e publicada que consuma uma API públi
 **[TheMealDB](https://www.themealdb.com/api.php)** — API pública de receitas, com chave de teste `1`, sem necessidade de cadastro.
 
 Endpoints utilizados:
+
 - `search.php?s=` — busca por nome
 - `filter.php?i=` — busca por ingrediente
 - `filter.php?c=` / `filter.php?a=` — filtro por categoria e por país/origem
@@ -61,7 +62,7 @@ npm run dev
 http://localhost:5173
 ```
 
-**Variáveis de ambiente:** copie o arquivo `.env.example` para `.env` e ajuste se necessário (`VITE_MEALDB_BASE_URL`, `VITE_MEALDB_KEY=1`).
+**Variáveis de ambiente:** copie o arquivo `.env.example` para `.env` e ajuste se necessário (`VITE_MEALDB_BASE_URL`, `VITE_MEALDB_VERSION=1`).
 
 ## 🌐 Link da Aplicação Publicada
 
@@ -75,6 +76,7 @@ A IA (Claude) foi utilizada como ferramenta de apoio para estruturar a documenta
 
 "Atue como um Arquiteto de Software e Product Manager experiente. Estou planejando desenvolver um projeto chamado Painel de Receitas, uma aplicação web focada em ter uma interface altamente visual, divertida e intuitiva.
 Por favor, estruture, analise e expanda a documentação inicial deste projeto dividindo sua resposta exatamente nos seguintes tópicos:
+
 1. Problema: Detalhe as dores do usuário (ex: dificuldade em decidir o que cozinhar, receitas espalhadas em sites poluídos por anúncios, dificuldade de comparar opções e a frustração de não achar receitas com os ingredientes que já se tem na geladeira sem abrir dezenas de abas).
 2. Ideia: Descreva a solução central do Painel de Receitas e como ele resolve o problema acima através de uma experiência centralizada.
 3. Usuário: Defina o público-alvo (pessoas que cozinham em casa, exploradores de culinária internacional, pessoas buscando reduzir desperdício de alimentos, etc.).
@@ -90,7 +92,7 @@ Por favor, estruture, analise e expanda a documentação inicial deste projeto d
    - ❤️ Favoritos (salvar para depois)
    - 📋 Visualização de detalhes (foto, ingredientes, medidas precisas, instruções em passo a passo e/ou vídeo)
    - Bônus: Sugira de 1 ou mais outras funcionalidades extras que sejam totalmente coerentes com a proposta de ser visual, divertido e resolver o problema da geladeira.
-Entregue a resposta formatada em Markdown, de forma clara, profissional e pronta para ser usada como escopo inicial de desenvolvimento."
+     Entregue a resposta formatada em Markdown, de forma clara, profissional e pronta para ser usada como escopo inicial de desenvolvimento."
 
 ### Objetivo
 
@@ -98,4 +100,4 @@ Estruturar rapidamente a documentação inicial do projeto — problema, públic
 
 ---
 
-*Desenvolvido como parte do Desafio 02 (Painel Interativo com API Pública) da Kodie Academy.*
+_Desenvolvido como parte do Desafio 02 (Painel Interativo com API Pública) da Kodie Academy._

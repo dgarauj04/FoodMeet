@@ -6,7 +6,6 @@ function toRecipeSummaryList(payload) {
   return meals.map(toRecipeSummary).filter(Boolean);
 }
 
-/** lookup.php e random.php devolvem { meals: [meal] } com UM item (ou meals: null). */
 function toSingleRecipe(payload) {
   const meal = payload?.meals?.[0];
   return meal ? toRecipe(meal) : null;

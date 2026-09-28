@@ -21,7 +21,8 @@
 
 @media (max-width: 768px) {
   .compare-tray {
-    bottom: 76px;
+    bottom: 16px;
+    right: 16px;
   }
 }
 

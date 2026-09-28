@@ -1,23 +1,17 @@
-// src/components/Layout/Header.jsx
-
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
-import { FiHome, FiHeart, FiSun, FiMoon, FiGift } from 'react-icons/fi';
-import { FaScaleBalanced } from 'react-icons/fa6';
+import { FiSun, FiMoon, FiGift, FiMenu } from 'react-icons/fi';
 import './Header.css';
 import { ROUTES, SEARCH_MODES, THEMES, recipePath } from '../../../utils/constants';
-import { useFavorites } from '../../../hooks/useFavorites';
-import { useCompare } from '../../../hooks/useCompare';
 import { useTheme } from '../../../context/ThemeContext';
 import { useNameLists } from '../../../hooks/useRecipes';
 import { SearchBar } from '../../ui/SearchBar/SearchBar';
 import { getRandomRecipe } from '../../../services/api/mealApi';
+import logoFoodmeet from '../../../assets/icon-logo-foodmeet.png';
 
-export function Header() {
+export function Header({ onOpenMenu }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { favoritesCount } = useFavorites();
-  const { compareCount } = useCompare();
   const { theme, toggleTheme } = useTheme();
   const { ingredients: ingredientNames } = useNameLists();
 
@@ -31,9 +25,6 @@ export function Header() {
     setQuery(searchParams.get('q') ?? '');
     setMode(searchParams.get('mode') ?? SEARCH_MODES.NAME);
   }, [searchParams]);
-
-  const getNavClass = ({ isActive }) => `header__nav-link${isActive ? ' active' : ''}`;
-  const getMobileClass = ({ isActive }) => `header__mobile-link${isActive ? ' active' : ''}`;
 
   function handleSearchSubmit(value) {
     const term = (value ?? query).trim();
@@ -54,7 +45,7 @@ export function Header() {
         navigate(recipePath(recipe.id));
       }
     } catch {
-      // silencioso: o usuário pode tentar de novo
+      console.log('Erro ao buscar receita aleatória');
     } finally {
       setSurpriseLoading(false);
     }
@@ -63,30 +54,19 @@ export function Header() {
   return (
     <header className="header">
       <div className="container header__inner">
-        <NavLink to={ROUTES.HOME} className="header__logo">
-          FoodMeet 🍳
-        </NavLink>
+        <button
+          type="button"
+          className="header__menu-btn"
+          onClick={onOpenMenu}
+          aria-label="Abrir menu de navegação"
+        >
+          <FiMenu size={22} />
+        </button>
 
-        <nav className="header__nav" aria-label="Navegação principal">
-          <NavLink to={ROUTES.HOME} className={getNavClass} end>
-            <FiHome size={16} />
-            Início
-          </NavLink>
-          <NavLink to={ROUTES.FAVORITES} className={getNavClass}>
-            <FiHeart size={16} />
-            Favoritos
-            {favoritesCount > 0 && (
-              <span className="header__nav-badge">{favoritesCount}</span>
-            )}
-          </NavLink>
-          <NavLink to={ROUTES.COMPARE} className={getNavClass}>
-            <FaScaleBalanced size={16} />
-            Comparar
-            {compareCount > 0 && (
-              <span className="header__nav-badge">{compareCount}</span>
-            )}
-          </NavLink>
-        </nav>
+        <NavLink to={ROUTES.HOME} className="header__logo">
+          <img src={logoFoodmeet} className="header__logo-img" alt="FoodMeet Logo" />
+          FoodMeet
+        </NavLink>
 
         <div className="header__search">
           <SearchBar
@@ -128,27 +108,6 @@ export function Header() {
           </button>
         </div>
       </div>
-
-      <nav className="header__nav--mobile" aria-label="Navegação mobile">
-        <NavLink to={ROUTES.HOME} className={getMobileClass} end>
-          <FiHome size={20} />
-          Início
-        </NavLink>
-        <NavLink to={ROUTES.FAVORITES} className={getMobileClass}>
-          <FiHeart size={20} />
-          Favoritos
-          {favoritesCount > 0 && (
-            <span className="header__mobile-badge">{favoritesCount}</span>
-          )}
-        </NavLink>
-        <NavLink to={ROUTES.COMPARE} className={getMobileClass}>
-          <FaScaleBalanced size={20} />
-          Comparar
-          {compareCount > 0 && (
-            <span className="header__mobile-badge">{compareCount}</span>
-          )}
-        </NavLink>
-      </nav>
     </header>
   );
 }

@@ -4,7 +4,7 @@ const BASE_URL = (
   import.meta.env?.VITE_MEALDB_BASE_URL || "https://www.themealdb.com/api/json/v1"
 ).replace(/\/+$/, ""); 
 
-const API_KEY = import.meta.env?.VITE_MEALDB_KEY || "1";
+const API_KEY = import.meta.env?.VITE_MEALDB_VERSION || "1";
 
 const REQUEST_TIMEOUT_MS = API_LIMITS.REQUEST_TIMEOUT_MS;
 

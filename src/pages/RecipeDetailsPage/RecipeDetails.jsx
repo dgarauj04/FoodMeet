@@ -1,5 +1,3 @@
-// src/pages/RecipeDetailsPage/RecipeDetails.jsx
-
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './RecipeDetails.css';
@@ -9,10 +7,10 @@ import { useCompare } from '../../hooks/useCompare';
 import { Badge } from '../../components/ui/Badge/Badge';
 import { Button } from '../../components/ui/Button/Button';
 import { EmptyState } from '../../components/ui/EmptyState/EmptyState';
-import { SkeletonCard } from '../../components/ui/SkeletonCard/SkeletonCard';
 import { getYoutubeEmbedUrl, getIngredientEmoji, formatIngredient } from '../../utils/recipeUtils';
 import { getErrorMessage } from '../../services/api/httpClient';
 import { ROUTES } from '../../utils/constants';
+import { Star, StarOff } from 'lucide-react';
 
 export function RecipeDetails() {
   const { id } = useParams();
@@ -31,7 +29,6 @@ export function RecipeDetails() {
     });
   }
 
-  // ── Loading ──
   if (loading) {
     return (
       <div className="recipe-details">
@@ -46,7 +43,6 @@ export function RecipeDetails() {
     );
   }
 
-  // ── Error ──
   if (error) {
     return (
       <div className="recipe-details">
@@ -61,7 +57,6 @@ export function RecipeDetails() {
     );
   }
 
-  // ── Not found ──
   if (!loading && recipe === null) {
     return (
       <div className="recipe-details">
@@ -112,7 +107,6 @@ export function RecipeDetails() {
   return (
     <div className="recipe-details">
       <div className="container recipe-details__inner">
-        {/* Hero image */}
         {recipe.image ? (
           <img
             src={recipe.image}
@@ -124,10 +118,8 @@ export function RecipeDetails() {
           <div className="recipe-details__hero-placeholder" aria-hidden="true">🍽️</div>
         )}
 
-        {/* Título */}
         <h1 className="recipe-details__title">{recipe.name}</h1>
 
-        {/* Badges */}
         <div className="recipe-details__badges">
           {recipe.category && <Badge emoji="🏷️" label={recipe.category} />}
           {recipe.area && <Badge emoji="🌎" label={recipe.area} />}
@@ -136,14 +128,23 @@ export function RecipeDetails() {
           ))}
         </div>
 
-        {/* Ações */}
         <div className="recipe-details__actions">
           <Button
             variant={favorited ? 'ghost' : 'primary'}
             onClick={handleFavorite}
             aria-pressed={favorited}
           >
-            {favorited ? '💔 Remover dos favoritos' : '❤️ Favoritar'}
+            {favorited ? (
+              <>
+                <StarOff size={18} strokeWidth={3} color='gold' />
+                Remover dos favoritos
+              </>
+            ) : (
+              <>
+                <Star size={18} strokeWidth={3} color='gold' />
+                Favoritar
+              </>
+            )}
           </Button>
           <Button
             variant={inCompare ? 'secondary' : 'ghost'}
@@ -154,7 +155,6 @@ export function RecipeDetails() {
           </Button>
         </div>
 
-        {/* Ingredientes */}
         {recipe.ingredients && recipe.ingredients.length > 0 && (
           <div className="recipe-details__section">
             <h2 className="recipe-details__section-title">
