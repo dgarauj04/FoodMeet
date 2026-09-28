@@ -1,0 +1,27 @@
+/* src/pages/FavoritesPage/Favorites.css */
+
+.favorites {
+  padding-block: 32px 48px;
+}
+
+.favorites__header {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.favorites__title {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.favorites__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}

@@ -1,0 +1,65 @@
+.filter-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-chips__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-chips__rail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.filter-chips__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+  flex-shrink: 0;
+}
+
+.filter-chips__chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-surface-alt);
+}
+
+.filter-chips__chip--selected {
+  background: var(--color-surface-alt);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 600;
+  animation: bounce 0.3s ease;
+}
+
+.filter-chips__chip-remove {
+  display: flex;
+  align-items: center;
+  color: var(--color-primary);
+  opacity: 0.7;
+  transition: opacity var(--transition);
+}
+
+.filter-chips__chip-remove:hover {
+  opacity: 1;
+}

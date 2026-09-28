@@ -1,0 +1,36 @@
+.skeleton-card {
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.skeleton-card__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.skeleton-card__body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton-card__title {
+  height: 18px;
+  border-radius: 6px;
+  width: 85%;
+}
+
+.skeleton-card__title--short {
+  height: 16px;
+  border-radius: 6px;
+  width: 60%;
+}
+
+.skeleton-card__badge {
+  height: 20px;
+  border-radius: var(--radius-pill);
+  width: 40%;
+}

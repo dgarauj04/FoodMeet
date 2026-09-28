@@ -1,0 +1,122 @@
+/* src/pages/ComparePage/Compare.css */
+
+.compare {
+  padding-block: 32px 48px;
+}
+
+.compare__header {
+  margin-bottom: 24px;
+}
+
+.compare__title {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.compare__stats-banner {
+  background: var(--color-surface);
+  border-radius: var(--radius-input);
+  border: 1px solid var(--color-border);
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.compare__stats-banner strong {
+  color: var(--color-text);
+}
+
+/* Layout das colunas */
+.compare__layout {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+.compare__vs-divider {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 120px;
+  padding-inline: 12px;
+}
+
+.compare__vs-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.4);
+  flex-shrink: 0;
+}
+
+/* Skeleton colunas */
+.compare__skeleton-col {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.compare__skeleton-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.compare__skeleton-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compare__skeleton-line {
+  height: 16px;
+  border-radius: 6px;
+}
+
+/* Error */
+.compare__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-block: 40px;
+  text-align: center;
+}
+
+.compare__error-message {
+  color: var(--color-error);
+  background: var(--color-error-bg);
+  padding: 12px 20px;
+  border-radius: var(--radius-input);
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .compare__layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .compare__vs-divider {
+    padding-top: 0;
+    padding-inline: 0;
+  }
+}

@@ -1,0 +1,166 @@
+.compare-column {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.compare-column__header {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.compare-column__image-wrapper {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  background: var(--color-surface-alt);
+}
+
+.compare-column__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.compare-column__image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.compare-column__badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.compare-column__badge-label {
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-surface);
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  padding: 3px 12px;
+}
+
+.compare-column__title {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.compare-column__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.compare-column__ingredient-count {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 6px;
+}
+
+/* Lista de ingredientes */
+.compare-column__ingredients {
+  padding: 16px;
+  flex: 1;
+}
+
+.compare-column__ingredients-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.compare-column__ingredient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.compare-column__ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: background var(--transition);
+}
+
+.compare-column__ingredient-item--common {
+  background: var(--color-success-bg);
+}
+
+.compare-column__ingredient-emoji {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.compare-column__ingredient-text {
+  flex: 1;
+  color: var(--color-text);
+}
+
+.compare-column__common-icon {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+/* Steps colapsado */
+.compare-column__steps {
+  padding: 0 16px 16px;
+}
+
+.compare-column__steps-summary {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  user-select: none;
+  padding: 8px 0;
+  list-style: none;
+}
+
+.compare-column__steps-summary::-webkit-details-marker {
+  display: none;
+}
+
+.compare-column__steps-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compare-column__step {
+  display: flex;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.compare-column__step-number {
+  font-family: var(--font-title);
+  font-weight: 700;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  min-width: 20px;
+}
