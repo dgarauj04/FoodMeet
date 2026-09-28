@@ -1,8 +1,6 @@
-// src/pages/HomePage/Home.jsx
-
 import { useNavigate } from 'react-router-dom';
 import { FiClock, FiHeart, FiUsers } from 'react-icons/fi';
-import './Home.css';
+import './HomePage.css';
 import { useRandomRecipe, useCategories, useFeaturedRecipes } from '../../hooks/useRecipes';
 import { useFavorites } from '../../hooks/useFavorites';
 import { useCompare } from '../../hooks/useCompare';
@@ -33,7 +31,7 @@ function estimatePrepMinutes(recipe) {
   return Math.min(90, Math.max(15, Math.round(raw / 5) * 5));
 }
 
-export function Home() {
+export function HomePage() {
   const navigate = useNavigate();
   const { data: randomRecipe, loading: randomLoading } = useRandomRecipe();
   const { data: categories, loading: catLoading, usedFallback } = useCategories();

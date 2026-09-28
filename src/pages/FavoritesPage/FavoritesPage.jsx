@@ -1,7 +1,5 @@
-// src/pages/FavoritesPage/Favorites.jsx
-
 import { useNavigate } from 'react-router-dom';
-import './Favorites.css';
+import './FavoritesPage.css';
 import { useFavorites } from '../../hooks/useFavorites';
 import { useCompare } from '../../hooks/useCompare';
 import { RecipeCard } from '../../components/Layout/Recipes/RecipeCard/RecipeCard';
@@ -9,7 +7,7 @@ import { EmptyState } from '../../components/ui/EmptyState/EmptyState';
 import { Button } from '../../components/ui/Button/Button';
 import { ROUTES } from '../../utils/constants';
 
-export function Favorites() {
+export function FavoritesPage() {
   const navigate = useNavigate();
   const { favorites, isFavorite, toggleFavorite, favoritesCount } = useFavorites();
   const { isInCompare, addToCompare, removeFromCompare, clearCompare } = useCompare();

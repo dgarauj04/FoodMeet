@@ -1,8 +1,6 @@
-// src/pages/ResultsPage/Results.jsx
-
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import './Results.css';
+import './ResultsPage.css';
 import { useRecipeSearch, useNameLists, useFilteredRecipes } from '../../hooks/useRecipes';
 import { useFavorites } from '../../hooks/useFavorites';
 import { useCompare } from '../../hooks/useCompare';
@@ -12,12 +10,12 @@ import { RecipeCard } from '../../components/Layout/Recipes/RecipeCard/RecipeCar
 import { SkeletonCard } from '../../components/ui/SkeletonCard/SkeletonCard';
 import { EmptyState } from '../../components/ui/EmptyState/EmptyState';
 import { Button } from '../../components/ui/Button/Button';
-import { SEARCH_MODES, API_LIMITS, ROUTES } from '../../utils/constants';
+import { SEARCH_MODES, API_LIMITS } from '../../utils/constants';
 import { getErrorMessage } from '../../services/api/httpClient';
 
 const POPULAR_SUGGESTIONS = ['chicken', 'pasta', 'beef', 'salmon', 'egg'];
 
-export function Results() {
+export function ResultsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const [visibleCount, setVisibleCount] = useState(API_LIMITS.MAX_GRID_ITEMS);
@@ -30,17 +28,13 @@ export function Results() {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isInCompare, addToCompare, removeFromCompare } = useCompare();
 
-  // Listas para autocomplete e filtros
   const { categories: catNames, areas: areaNames, ingredients: ingredientNames } = useNameLists();
 
-  // Busca por query
   const { data: searchResults, loading: searchLoading, error: searchError } = useRecipeSearch(q, mode);
 
-  // Busca por filtro sem query
   const filterQuery = !q ? { category: selectedCategories[0], area: selectedAreas[0] } : {};
   const { data: filteredResults, loading: filteredLoading, error: filteredError } = useFilteredRecipes(filterQuery);
 
-  // Combina: com query + filtro ativo → filtrar client-side
   let results = [];
   if (q) {
     results = searchResults;
@@ -136,7 +130,6 @@ export function Results() {
 
       <div className="results__body">
         <div className="container">
-          {/* Estado inicial sem query e sem filtros */}
           {showEmpty && (
             <EmptyState
               emoji="🥕"
@@ -160,7 +153,6 @@ export function Results() {
             </EmptyState>
           )}
 
-          {/* Error */}
           {!showEmpty && error && (
             <div className="results__error">
               <p className="results__error-message">{getErrorMessage(error)}</p>
@@ -170,14 +162,12 @@ export function Results() {
             </div>
           )}
 
-          {/* Loading */}
           {!showEmpty && isLoading && (
             <div className="results__grid">
               {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
           )}
 
-          {/* Resultados */}
           {!showEmpty && !isLoading && !error && (
             <>
               {results.length > 0 && (

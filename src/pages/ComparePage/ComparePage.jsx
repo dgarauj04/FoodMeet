@@ -1,7 +1,5 @@
-// src/pages/ComparePage/Compare.jsx
-
 import { useNavigate } from 'react-router-dom';
-import './Compare.css';
+import './ComparePage.css';
 import { useCompare } from '../../hooks/useCompare';
 import { useRecipePair } from '../../hooks/useRecipes';
 import { CompareColumn } from '../../components/ui/CompareColumn/CompareColumn';
@@ -12,14 +10,13 @@ import { normalizeIngredientName } from '../../utils/recipeUtils';
 import { getErrorMessage } from '../../services/api/httpClient';
 import { ROUTES } from '../../utils/constants';
 
-export function Compare() {
+export function ComparePage() {
   const navigate = useNavigate();
   const { compareList, clearCompare, removeFromCompare } = useCompare();
   
   const ids = compareList.length >= 2 ? [compareList[0].id, compareList[1].id] : [];
   const { recipes, loading, error } = useRecipePair(ids);
 
-  // ── Menos de 2 receitas ──
   if (compareList.length < 2) {
     return (
       <div className="compare">
@@ -36,7 +33,6 @@ export function Compare() {
     );
   }
 
-  // ── Loading ──
   if (loading) {
     return (
       <div className="compare">
@@ -62,7 +58,6 @@ export function Compare() {
     );
   }
 
-  // ── Error ──
   if (error) {
     return (
       <div className="compare">
@@ -89,7 +84,6 @@ export function Compare() {
           <h1 className="compare__title">⚖️ Duelo de Receitas</h1>
         </div>
 
-        {/* Stats banner */}
         <div className="compare__stats-banner">
           <span>📊 <strong>{stats.commonCount}</strong> ingredientes em comum</span>
           <span>🅰️ <strong>{stats.totalA}</strong> ingredientes</span>
@@ -99,7 +93,6 @@ export function Compare() {
           </Button>
         </div>
 
-        {/* Colunas */}
         <div className="compare__layout">
           <CompareColumn recipe={recipeA} commonKeys={commonKeys} badge="Receita A" />
 
