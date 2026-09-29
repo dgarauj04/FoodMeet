@@ -1,18 +1,22 @@
-// src/components/Layout/Recipes/RecipeCard/RecipeCard.jsx
-
 import { Link } from 'react-router-dom';
 import { FiHeart } from 'react-icons/fi';
 import { FaScaleBalanced } from 'react-icons/fa6';
 import './RecipeCard.css';
-import { Badge } from '../../../ui/Badge/Badge';
-import { recipePath } from '../../../../utils/constants';
+import { Badge } from '../../ui/Badge/Badge';
+import { recipePath } from '../../../utils/constants';
 
 export function RecipeCard({ recipe, isFavorite, onToggleFavorite, onAddToCompare, inCompare }) {
   const detailPath = recipePath(recipe.id);
 
+  function safeLabel(value) {
+  if (value === null || value === undefined || value === "") {
+    return "Unknown";
+  }
+  return value;
+}
+
   return (
     <article className="recipe-card">
-      {/* Imagem */}
       <div className="recipe-card__image-wrapper">
         <Link to={detailPath} className="recipe-card__image-link" tabIndex={-1}>
           {recipe.image ? (
@@ -27,7 +31,6 @@ export function RecipeCard({ recipe, isFavorite, onToggleFavorite, onAddToCompar
           )}
         </Link>
 
-        {/* Favoritar */}
         <button
           type="button"
           className={`recipe-card__favorite-btn${isFavorite ? ' recipe-card__favorite-btn--active' : ''}`}
@@ -37,7 +40,6 @@ export function RecipeCard({ recipe, isFavorite, onToggleFavorite, onAddToCompar
           <FiHeart size={16} fill={isFavorite ? 'currentColor' : 'none'} />
         </button>
 
-        {/* Comparar */}
         <button
           type="button"
           className={`recipe-card__compare-btn${inCompare ? ' recipe-card__compare-btn--active' : ''}`}
@@ -49,7 +51,6 @@ export function RecipeCard({ recipe, isFavorite, onToggleFavorite, onAddToCompar
         </button>
       </div>
 
-      {/* Corpo */}
       <div className="recipe-card__body">
         <Link to={detailPath} className="recipe-card__title-link">
           <h3 className="recipe-card__title">{recipe.name}</h3>
@@ -57,7 +58,7 @@ export function RecipeCard({ recipe, isFavorite, onToggleFavorite, onAddToCompar
 
         <div className="recipe-card__badges">
           {recipe.category && <Badge emoji="🏷️" label={recipe.category} />}
-          {recipe.area && <Badge emoji="🌎" label={recipe.area} />}
+          {recipe.area && <Badge emoji="🌎" label={safeLabel(recipe.area)} />}
         </div>
 
         {recipe.ingredientCount !== null && recipe.ingredientCount !== undefined && (

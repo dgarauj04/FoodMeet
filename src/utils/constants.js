@@ -36,11 +36,11 @@ export const STORAGE_KEYS = Object.freeze({
 export const THEMES = Object.freeze({ LIGHT: "light", DARK: "dark" });
 
 export const DEFAULT_CATEGORIES = Object.freeze([
-  { id: "beef", name: "Beef", image: null, emoji: "🥩" },
-  { id: "chicken", name: "Chicken", image: null, emoji: "🍗" },
-  { id: "dessert", name: "Dessert", image: null, emoji: "🍰" },
-  { id: "pasta", name: "Pasta", image: null, emoji: "🍝" },
-  { id: "seafood", name: "Seafood", image: null, emoji: "🐟" },
-  { id: "vegan", name: "Vegan", image: null, emoji: "🥗" },
-  { id: "breakfast", name: "Breakfast", image: null, emoji: "🍳" },
+  { id: "beef",      name: "Carne Bovina",  nameEn: "Beef",      image: null, emoji: "🥩" },
+  { id: "chicken",   name: "Frango",        nameEn: "Chicken",   image: null, emoji: "🍗" },
+  { id: "dessert",   name: "Sobremesa",     nameEn: "Dessert",   image: null, emoji: "🍰" },
+  { id: "pasta",     name: "Massas",        nameEn: "Pasta",     image: null, emoji: "🍝" },
+  { id: "seafood",   name: "Frutos do Mar", nameEn: "Seafood",   image: null, emoji: "🐟" },
+  { id: "vegan",     name: "Vegana",        nameEn: "Vegan",     image: null, emoji: "🥗" },
+  { id: "breakfast", name: "Café da Manhã", nameEn: "Breakfast", image: null, emoji: "🍳" },
 ]);

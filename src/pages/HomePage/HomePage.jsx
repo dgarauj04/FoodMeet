@@ -1,10 +1,12 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiClock, FiHeart, FiUsers } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiClock, FiHeart } from 'react-icons/fi';
+import { FaBasketShopping } from "react-icons/fa6";
 import './HomePage.css';
 import { useRandomRecipe, useCategories, useFeaturedRecipes } from '../../hooks/useRecipes';
 import { useFavorites } from '../../hooks/useFavorites';
 import { useCompare } from '../../hooks/useCompare';
-import { RecipeCard } from '../../components/Layout/Recipes/RecipeCard/RecipeCard';
+import { RecipeCard } from '../../components/Layout/RecipeCard/RecipeCard';
 import { SkeletonCard } from '../../components/ui/SkeletonCard/SkeletonCard';
 import { EmptyState } from '../../components/ui/EmptyState/EmptyState';
 import { Button } from '../../components/ui/Button/Button';
@@ -38,6 +40,29 @@ export function HomePage() {
   const { data: featured, loading: featuredLoading } = useFeaturedRecipes();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isInCompare, addToCompare, removeFromCompare } = useCompare();
+  const categoriesRailRef = useRef(null);
+  const [canScrollCategoriesLeft, setCanScrollCategoriesLeft] = useState(false);
+  const [canScrollCategoriesRight, setCanScrollCategoriesRight] = useState(false);
+
+  function updateCategoriesScrollState() {
+    const rail = categoriesRailRef.current;
+    if (!rail) return;
+    setCanScrollCategoriesLeft(rail.scrollLeft > 1);
+    setCanScrollCategoriesRight(rail.scrollLeft + rail.clientWidth < rail.scrollWidth - 1);
+  }
+
+  useEffect(() => {
+    updateCategoriesScrollState();
+    const rail = categoriesRailRef.current;
+    if (!rail) return undefined;
+    const observer = new ResizeObserver(updateCategoriesScrollState);
+    observer.observe(rail);
+    return () => observer.disconnect();
+  }, [categories, catLoading]);
+
+  function scrollCategories(direction) {
+    categoriesRailRef.current?.scrollBy({ left: direction * 260, behavior: 'smooth' });
+  }
 
   function handleToggleFavorite(recipe) {
     toggleFavorite(recipe);
@@ -56,7 +81,6 @@ export function HomePage() {
 
   return (
     <div>
-      {/* ── Hero ── */}
       <section className="home__hero">
         <div className="container home__hero-inner">
           <div className="home__hero-top">
@@ -140,7 +164,7 @@ export function HomePage() {
                       {estimatePrepMinutes(randomRecipe)} min
                     </span>
                     <span>
-                      <FiUsers size={15} aria-hidden="true" />
+                      <FaBasketShopping size={15} aria-hidden="true" />
                       {randomRecipe.ingredients?.length ?? 0} ingredientes
                     </span>
                   </div>
@@ -151,12 +175,17 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ── Categorias ── */}
       <section className="home__section">
         <div className="container">
           <h2 className="home__section-title">🍽️ Explore por sabor</h2>
+          <div className="home__categories-rail-wrap">
+            {canScrollCategoriesLeft && (
+              <button type="button" className="home__rail-scroll home__rail-scroll--left" onClick={() => scrollCategories(-1)} aria-label="Ver categorias anteriores">
+                <FiChevronLeft size={20} />
+              </button>
+            )}
           {catLoading ? (
-            <div className="home__categories-rail rail">
+            <div ref={categoriesRailRef} className="home__categories-rail rail" onScroll={updateCategoriesScrollState}>
               {Array.from({ length: 8 }).map((_, i) => (
                 <div
                   key={i}
@@ -168,12 +197,12 @@ export function HomePage() {
               ))}
             </div>
           ) : (
-            <div className="home__categories-rail rail">
+            <div ref={categoriesRailRef} className="home__categories-rail rail" onScroll={updateCategoriesScrollState}>
               {categories.map((cat) => (
                 <button
                   key={cat.id ?? cat.name}
                   className="home__category-card"
-                  onClick={() => navigate(`${ROUTES.RESULTS}?category=${encodeURIComponent(cat.name)}`)}
+                  onClick={() => navigate(`${ROUTES.RESULTS}?category=${encodeURIComponent(cat.nameEn ?? cat.name)}`)}
                   aria-label={`Ver receitas de ${cat.name}`}
                 >
                   <div className="home__category-image-wrapper">
@@ -193,10 +222,15 @@ export function HomePage() {
               ))}
             </div>
           )}
+            {canScrollCategoriesRight && (
+              <button type="button" className="home__rail-scroll home__rail-scroll--right" onClick={() => scrollCategories(1)} aria-label="Ver mais categorias">
+                <FiChevronRight size={20} />
+              </button>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* ── Em destaque ── */}
       <section className="home__section">
         <div className="container">
           <h2 className="home__section-title">🔥 Receitas em destaque</h2>

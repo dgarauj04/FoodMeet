@@ -1,5 +1,3 @@
-// src/hooks/useLocalStorage.js
-
 import { useState, useCallback } from 'react';
 
 /**

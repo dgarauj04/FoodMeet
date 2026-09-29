@@ -40,8 +40,8 @@ export function CompareColumn({ recipe, commonKeys, badge }) {
       <div className="compare-column__ingredients">
         <p className="compare-column__ingredients-title">Ingredientes</p>
         <ul className="compare-column__ingredient-list">
-          {(recipe.ingredients ?? []).map((ing, i) => {
-            const key = normalizeIngredientName(ing.name);
+            {(recipe.ingredients ?? []).map((ing, i) => {
+            const key = normalizeIngredientName(ing.nameEn ?? ing.name); // ← mesmo contrato
             const isCommon = commonKeys.has(key);
             return (
               <li
@@ -49,10 +49,10 @@ export function CompareColumn({ recipe, commonKeys, badge }) {
                 className={`compare-column__ingredient-item${isCommon ? ' compare-column__ingredient-item--common' : ''}`}
               >
                 <span className="compare-column__ingredient-emoji" aria-hidden="true">
-                  {getIngredientEmoji(ing.name)}
+                  {getIngredientEmoji(ing.nameEn ?? ing.name)} {/* ← emoji em EN (mapa EN) */}
                 </span>
                 <span className="compare-column__ingredient-text">
-                  {formatIngredient(ing)}
+                  {formatIngredient(ing)} {/* exibe pt + medida pt — correto, não mexa */}
                 </span>
                 {isCommon && (
                   <span className="compare-column__common-icon" aria-label="Em comum">✅</span>

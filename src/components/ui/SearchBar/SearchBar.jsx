@@ -4,16 +4,11 @@ import './SearchBar.css';
 import { Spinner } from '../Spinner/Spinner';
 import { SEARCH_MODES, API_LIMITS } from '../../../utils/constants';
 import { getIngredientEmoji } from '../../../utils/recipeUtils';
+import { translateIngredientName } from '../../../data/translations';
 
 export function SearchBar({
-  query,
-  onQueryChange,
-  mode,
-  onModeChange,
-  onSubmit,
-  loading = false,
-  suggestions = [],
-  placeholder: placeholderProp,
+  query, onQueryChange, mode, onModeChange, onSubmit,
+  loading = false, suggestions = [], placeholder: placeholderProp,
 }) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
@@ -24,7 +19,13 @@ export function SearchBar({
   const filteredSuggestions =
     isIngredientMode && query.length >= 2
       ? suggestions
-          .filter((s) => s.toLowerCase().includes(query.toLowerCase()))
+          .filter((s) => {
+            const q = query.toLowerCase();
+            return (
+              s.toLowerCase().includes(q) ||
+              translateIngredientName(s).toLowerCase().includes(q)
+            );
+          })
           .slice(0, API_LIMITS.AUTOCOMPLETE_LIMIT)
       : [];
 
@@ -53,14 +54,17 @@ export function SearchBar({
   }
 
   function handleSuggestionClick(suggestion) {
-    onQueryChange(suggestion);
+    const ptLabel = translateIngredientName(suggestion);
+    onQueryChange(ptLabel);
     setOpen(false);
-    onSubmit?.(suggestion);
+    onSubmit?.(ptLabel);
   }
 
   const placeholder =
     placeholderProp ??
-    (isIngredientMode ? 'Ex.: chicken, garlic, pasta...' : 'Buscar frango cremoso...');
+    (isIngredientMode
+      ? 'Ex.: frango, alho, macarrão...'
+      : 'Buscar frango cremoso...');
 
   return (
     <div className="search-bar" ref={wrapperRef}>
@@ -131,9 +135,9 @@ export function SearchBar({
               type="button"
             >
               <span className="search-bar__suggestion-emoji" aria-hidden="true">
-                {getIngredientEmoji(suggestion)}
+                {getIngredientEmoji(suggestion)} 
               </span>
-              {suggestion}
+              {translateIngredientName(suggestion)} 
             </button>
           ))}
         </div>

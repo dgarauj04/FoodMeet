@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './RecipeDetails.css';
+import './RecipeDetailsPage.css';
 import { useRecipeDetail } from '../../hooks/useRecipes';
 import { useFavorites } from '../../hooks/useFavorites';
 import { useCompare } from '../../hooks/useCompare';
@@ -12,7 +12,7 @@ import { getErrorMessage } from '../../services/api/httpClient';
 import { ROUTES } from '../../utils/constants';
 import { Star, StarOff } from 'lucide-react';
 
-export function RecipeDetails() {
+export function RecipeDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: recipe, loading, error } = useRecipeDetail(id);
@@ -174,7 +174,7 @@ export function RecipeDetails() {
                     onKeyDown={(e) => e.key === 'Enter' && toggleIngredient(ing.name)}
                   >
                     <span className="recipe-details__ingredient-emoji" aria-hidden="true">
-                      {getIngredientEmoji(ing.name)}
+                      {getIngredientEmoji(ing.nameEn ?? ing.name)}
                     </span>
                     <span className="recipe-details__ingredient-text">
                       {formatIngredient(ing)}

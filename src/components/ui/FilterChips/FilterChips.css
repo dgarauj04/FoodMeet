@@ -20,6 +20,34 @@
   padding-bottom: 4px;
 }
 
+.filter-chips__rail-wrap {
+  position: relative;
+}
+
+.filter-chips__scroll {
+  position: absolute;
+  z-index: 1;
+  top: calc(50% - 2px);
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  display: grid;
+  place-items: center;
+}
+
+.filter-chips__scroll:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.filter-chips__scroll--left { left: -10px; }
+.filter-chips__scroll--right { right: -10px; }
+
 .filter-chips__chip {
   display: inline-flex;
   align-items: center;

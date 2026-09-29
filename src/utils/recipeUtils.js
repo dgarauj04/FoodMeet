@@ -1,4 +1,5 @@
 import { INGREDIENT_EMOJIS } from "../data/ingredientEmojis";
+import { toEnglishIngredient } from "../data/translations"; 
 
 /**
  * Extrai o ID de 11 caracteres de qualquer formato de URL do YouTube.
@@ -95,20 +96,38 @@ export function normalizeIngredientName(name) {
     .trim();
 }
 
-/**
- * Emoji de um ingrediente, para os chips da Geladeira e listas divertidas.
- * Faz matching por CONTÊM ("chicken breast" contém "chicken").
- * @returns {string} Emoji ou o fallback 🍽️
- */
-export function getIngredientEmoji(name) {
-  const normalized = normalizeIngredientName(name);
-  if (!normalized) return '🍽️';
+const DEFAULT_INGREDIENT_EMOJI = "🍽️";
 
+function matchEmoji(rawName = "") {
+  const normalized = normalizeIngredientName(rawName);
+  if (!normalized) return null;
   for (const [key, emoji] of Object.entries(INGREDIENT_EMOJIS)) {
-    if (normalized.includes(key)) return emoji; // ordem do mapa define prioridade
+    if (normalized.includes(key)) return emoji;
+  }
+  return null;
+}
+
+/**
+ * Emoji de um ingrediente — à prova de idioma.
+ * Aceita: string ("chicken breast" OU "peito de frango") OU o objeto do mapper
+ * ({ name: "Peito de frango", nameEn: "Chicken Breasts" }).
+ */
+export function getIngredientEmoji(ingredient) {
+  if (ingredient && typeof ingredient === "object") {
+    return (
+      matchEmoji(ingredient.nameEn) ??
+      matchEmoji(ingredient.name) ??
+      matchEmoji(toEnglishIngredient(ingredient.name ?? "")) ??
+      DEFAULT_INGREDIENT_EMOJI
+    );
   }
 
-  return '🍽️';
+  const raw = String(ingredient ?? "").trim();
+  return (
+    matchEmoji(raw) ??
+    matchEmoji(toEnglishIngredient(raw)) ??
+    DEFAULT_INGREDIENT_EMOJI
+  );
 }
 
 /**

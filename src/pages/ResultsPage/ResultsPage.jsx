@@ -6,12 +6,13 @@ import { useFavorites } from '../../hooks/useFavorites';
 import { useCompare } from '../../hooks/useCompare';
 import { SearchBar } from '../../components/ui/SearchBar/SearchBar';
 import { FilterChips } from '../../components/ui/FilterChips/FilterChips';
-import { RecipeCard } from '../../components/Layout/Recipes/RecipeCard/RecipeCard';
+import { RecipeCard } from '../../components/Layout/RecipeCard/RecipeCard';
 import { SkeletonCard } from '../../components/ui/SkeletonCard/SkeletonCard';
 import { EmptyState } from '../../components/ui/EmptyState/EmptyState';
 import { Button } from '../../components/ui/Button/Button';
 import { SEARCH_MODES, API_LIMITS } from '../../utils/constants';
 import { getErrorMessage } from '../../services/api/httpClient';
+import { translateCategory, translateArea } from '../../data/translations';
 
 const POPULAR_SUGGESTIONS = ['chicken', 'pasta', 'beef', 'salmon', 'egg'];
 
@@ -110,18 +111,20 @@ export function ResultsPage() {
           <div className="results__filters">
             {catNames.length > 0 && (
               <FilterChips
+                options={nameLists.categories}
+                selected={[categoryParam].filter(Boolean)}
+                onToggle={toggleCategory}
                 label="Categoria"
-                options={catNames}
-                selected={selectedCategories}
-                onToggle={handleToggleCategory}
+                formatLabel={translateCategory}
               />
             )}
             {areaNames.length > 0 && (
               <FilterChips
+                options={nameLists.areas}
+                selected={[areaParam].filter(Boolean)}
+                onToggle={toggleArea}
                 label="Origem"
-                options={areaNames}
-                selected={selectedAreas}
-                onToggle={handleToggleArea}
+                formatLabel={translateArea}
               />
             )}
           </div>

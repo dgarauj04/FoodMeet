@@ -1,5 +1,3 @@
-// src/hooks/useRecipes.js
-
 import { useState, useEffect, useRef } from 'react';
 import {
   searchByName,
@@ -14,18 +12,7 @@ import {
 } from '../services/api/mealApi';
 import { useDebounce } from './useDebounce';
 import { SEARCH_MODES, API_LIMITS, DEFAULT_CATEGORIES } from '../utils/constants';
-
-// ────────────────────────────────────────────────
-// Helpers internos
-// ────────────────────────────────────────────────
-
-function useAsyncState() {
-  return useState({ data: null, loading: false, error: null });
-}
-
-// ────────────────────────────────────────────────
-// useRecipeSearch
-// ────────────────────────────────────────────────
+import { toEnglishIngredient } from '../data/translations'
 
 /**
  * Busca receitas por nome ou ingrediente com debounce.
@@ -33,12 +20,14 @@ function useAsyncState() {
  * @param {string} mode - SEARCH_MODES.NAME | SEARCH_MODES.INGREDIENT
  * @returns {{ data: RecipeSummary[], loading: boolean, error: string|null }}
  */
+
 export function useRecipeSearch(query, mode = SEARCH_MODES.NAME) {
   const debouncedQuery = useDebounce(query, API_LIMITS.SEARCH_DEBOUNCE_MS);
   const [state, setState] = useState({ data: [], loading: false, error: null });
 
   useEffect(() => {
-    if (!debouncedQuery || !debouncedQuery.trim()) {
+    const raw = debouncedQuery?.trim();
+    if (!raw) {
       setState({ data: [], loading: false, error: null });
       return;
     }
@@ -46,10 +35,15 @@ export function useRecipeSearch(query, mode = SEARCH_MODES.NAME) {
     let cancelled = false;
     setState({ data: [], loading: true, error: null });
 
+    const term =
+      mode === SEARCH_MODES.INGREDIENT
+        ? toEnglishIngredient(raw) || raw
+        : raw;
+
     const fetcher =
       mode === SEARCH_MODES.INGREDIENT ? filterByIngredient : searchByName;
 
-    fetcher(debouncedQuery.trim())
+    fetcher(term)
       .then((data) => {
         if (!cancelled) setState({ data: data ?? [], loading: false, error: null });
       })
@@ -65,10 +59,6 @@ export function useRecipeSearch(query, mode = SEARCH_MODES.NAME) {
 
   return state;
 }
-
-// ────────────────────────────────────────────────
-// useRecipeDetail
-// ────────────────────────────────────────────────
 
 /**
  * Carrega o detalhe completo de uma receita por ID.
@@ -104,10 +94,6 @@ export function useRecipeDetail(id) {
   return state;
 }
 
-// ────────────────────────────────────────────────
-// useRandomRecipe
-// ────────────────────────────────────────────────
-
 /**
  * Carrega uma receita aleatória uma vez no mount.
  * @returns {{ data: Recipe|null, loading: boolean, error: string|null, refresh: Function }}
@@ -138,10 +124,6 @@ export function useRandomRecipe() {
 
   return { ...state, refresh };
 }
-
-// ────────────────────────────────────────────────
-// useCategories
-// ────────────────────────────────────────────────
 
 /**
  * Carrega as categorias. Usa DEFAULT_CATEGORIES como fallback.
@@ -193,10 +175,6 @@ export function useCategories() {
   return state;
 }
 
-// ────────────────────────────────────────────────
-// useNameLists
-// ────────────────────────────────────────────────
-
 /**
  * Carrega listas de nomes (categorias, áreas, ingredientes) em paralelo.
  * @returns {{ categories: string[], areas: string[], ingredients: string[], loading: boolean }}
@@ -233,10 +211,6 @@ export function useNameLists() {
   return state;
 }
 
-// ────────────────────────────────────────────────
-// useFeaturedRecipes
-// ────────────────────────────────────────────────
-
 /**
  * Carrega receitas em destaque de múltiplas categorias, dedupe e limita a 12.
  * @returns {{ data: RecipeSummary[], loading: boolean, error: string|null }}
@@ -259,7 +233,6 @@ export function useFeaturedRecipes() {
         r.status === 'fulfilled' ? r.value : []
       );
 
-      // Intercalar 4 de cada
       const interleaved = [];
       for (let i = 0; i < 4; i++) {
         if (dessert[i]) interleaved.push(dessert[i]);
@@ -267,7 +240,6 @@ export function useFeaturedRecipes() {
         if (chicken[i]) interleaved.push(chicken[i]);
       }
 
-      // Dedupe por id
       const seen = new Set();
       const deduped = interleaved.filter((r) => {
         if (seen.has(r.id)) return false;
@@ -285,10 +257,6 @@ export function useFeaturedRecipes() {
 
   return state;
 }
-
-// ────────────────────────────────────────────────
-// useFilteredRecipes (busca por categoria/área sem query)
-// ────────────────────────────────────────────────
 
 /**
  * Busca receitas por categoria ou área (sem query de texto).
@@ -310,7 +278,6 @@ export function useFilteredRecipes(filters) {
 
     const promises = [];
     if (category && area) {
-      // Ambos: buscar os dois e fazer interseção
       promises.push(filterByCategory(category));
       promises.push(
         import('../services/api/mealApi').then((m) => m.filterByArea(area))
@@ -357,10 +324,6 @@ export function useFilteredRecipes(filters) {
   return state;
 }
 
-// ────────────────────────────────────────────────
-// useRecipePair (para a página de comparação)
-// ────────────────────────────────────────────────
-
 /**
  * Carrega um par de receitas completas por ID.
  * @param {string[]} ids - Array com exatamente 2 IDs
@@ -395,7 +358,6 @@ export function useRecipePair(ids) {
     return () => {
       cancelled = true;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   return state;

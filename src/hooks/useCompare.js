@@ -1,5 +1,3 @@
-// src/hooks/useCompare.js
-
 import { useContext } from 'react';
 import { CompareContext } from '../context/CompareContext';
 

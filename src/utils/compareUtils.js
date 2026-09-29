@@ -5,8 +5,8 @@ function getComparableIngredients(recipe) {
   const result = [];
 
   for (const ingredient of recipe?.ingredients ?? []) {
-    const key = normalizeIngredientName(ingredient.name);
-    if (!key || seen.has(key)) continue; // ignora vazio e duplicado
+    const key = normalizeIngredientName(ingredient.nameEn ?? ingredient.name);
+    if (!key || seen.has(key)) continue;
     seen.add(key);
     result.push({ key, name: ingredient.name, measure: ingredient.measure });
   }
