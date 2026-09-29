@@ -72,7 +72,7 @@ http://localhost:5173
 
 A IA (Claude) foi utilizada como ferramenta de apoio para estruturar a documentação inicial do projeto e planejar a arquitetura de pastas, sem escrever o código final da aplicação.
 
-### Prompt utilizado
+### Prompt utilizado 1
 
 "Atue como um Arquiteto de Software e Product Manager experiente. Estou planejando desenvolver um projeto chamado Painel de Receitas, uma aplicação web focada em ter uma interface altamente visual, divertida e intuitiva.
 Por favor, estruture, analise e expanda a documentação inicial deste projeto dividindo sua resposta exatamente nos seguintes tópicos:
@@ -97,6 +97,29 @@ Por favor, estruture, analise e expanda a documentação inicial deste projeto d
 ### Objetivo
 
 Estruturar rapidamente a documentação inicial do projeto — problema, público-alvo, requisitos, escolha de API e funcionalidades — a partir de uma ideia ainda pouco desenvolvida, garantindo que o escopo do MVP e as decisões técnicas (como a escolha da TheMealDB) fossem justificadas antes de começar a codificar.
+
+### Prompt utilizado 2
+
+"Atue como um UI/UX Designer Sênior e Especialista em Front-end. Preciso criar a interface visual completa de um projeto chamado FoodMeet, que é um Painel de Receitas (a mais visual/divertida) voltado para pessoas que queiram descobrir pratos, usar o que tem em casa, decidir rápido o que preparar e escolher entre duas opções.
+
+O design deve ter um aspecto altamente profissional, moderno e polido, com qualidade de produto SaaS comercial.
+
+Por favor, desenvolva a documentação visual deste projeto dividindo sua resposta nos seguintes tópicos:
+1. Direção de Arte e Design System:
+   - Paleta de Cores: Defina as cores primárias, secundárias, background, texto e cores de feedback (sucesso, erro), fornecendo os códigos HEX. Explique rapidamente a psicologia por trás da escolha.
+   - Tipografia: Sugira duas fontes do Google Fonts (uma para títulos, outra para textos longos) que combinem com a temática.
+   - Estilo Visual: Defina o estilo dos elementos (ex: bordas arredondadas ou retas, uso de glassmorphism, sombras suaves, dark mode/light mode).
+2. Estrutura de Telas e Layout:
+   - Liste as principais telas que compõem o MVP.
+   - Defina a macro-estrutura da tela principal (ex: Sidebar fixa à esquerda, Header com barra de busca, Grid central para conteúdo principal).
+3. Componentes Chave:
+   - Descreva os 3 ou 4 componentes mais importantes da interface e como eles devem parecer (ex: "Card de Receita com imagem no topo, título em negrito e botão de favoritar flutuante" ou "Gráfico de radar com fundo translúcido").
+4. O Prompt de Geração (Para ferramentas Low-Code / AI Design):
+   - Com base em tudo o que foi definido acima, crie um prompt em inglês altamente descritivo e técnico, focado em React, que eu possa copiar e colar diretamente em ferramentas como v0.dev, Banani, Stitch, Bolt.new ou Lovable.dev para que a IA gere a tela principal perfeitamente. O prompt deve instruir a ferramenta sobre layout, cores exatas, espaçamentos, responsividade e comportamento dos componentes.
+
+### Objetivo
+
+Criar um design da interface visual completa e profissional para o FoodMeet, focando na experiência do usuário e na apresentação de receitas de forma atraente e intuitiva, para que possa ser usado como base para a construção e implementação.
 
 ---
 

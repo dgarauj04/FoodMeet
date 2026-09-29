@@ -10,7 +10,7 @@ export function RecipeCard({ recipe, isFavorite, onToggleFavorite, onAddToCompar
 
   function safeLabel(value) {
   if (value === null || value === undefined || value === "") {
-    return "Unknown";
+    return "Internacional";
   }
   return value;
 }
@@ -58,7 +58,7 @@ export function RecipeCard({ recipe, isFavorite, onToggleFavorite, onAddToCompar
 
         <div className="recipe-card__badges">
           {recipe.category && <Badge emoji="🏷️" label={recipe.category} />}
-          {recipe.area && <Badge emoji="🌎" label={safeLabel(recipe.area)} />}
+           <Badge emoji="🌎" label={safeLabel(recipe.area)} />
         </div>
 
         {recipe.ingredientCount !== null && recipe.ingredientCount !== undefined && (
