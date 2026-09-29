@@ -9,7 +9,10 @@ export const INGREDIENT_EMOJIS = {
   fish: "🐟",
   salmon: "🐟",
   tuna: "🐟",
+  squid: "🦑",
   shrimp: "🦐",
+  prawns: "🦐",
+  lamb: "🍖",
   egg: "🥚", // cobre "egg" e "eggs"
   eggs: "🥚",
   tofu: "🧈",
@@ -28,9 +31,8 @@ export const INGREDIENT_EMOJIS = {
   lettuce: "🥬",
   spinach: "🥬",
   cabbage: "🥬",
-  pepper: "🌶️",
-  chili: "🌶️",
   corn: "🌽",
+  peas: "🌽",
   mushroom: "🍄",
   mushrooms: "🍄",
   avocado: "🥑",
@@ -64,6 +66,14 @@ export const INGREDIENT_EMOJIS = {
 
   // Temperos e condimentos
   salt: "🧂",
+  "bell pepper": "🫑",
+  "baking powder": "🧂",
+  saffron: "🌿",
+  "bay leaf": "🌿",
+  ginger: "🫚",
+  pepper: "🌶️",
+  chili: "🌶️",
+  coriander: "🌿",
   sugar: "🍬",
   honey: "🍯",
   oil: "🫒",
@@ -79,6 +89,7 @@ export const INGREDIENT_EMOJIS = {
   beer: "🍺",
   water: "💧",
   chocolate: "🍫",
+  stock: "🍲",
 };
 
 const DEFAULT_EMOJI = '🍽️';

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import './ResultsPage.css';
 import { useRecipeSearch, useNameLists, useFilteredRecipes } from '../../hooks/useRecipes';
 import { useFavorites } from '../../hooks/useFavorites';
@@ -12,13 +12,11 @@ import { EmptyState } from '../../components/ui/EmptyState/EmptyState';
 import { Button } from '../../components/ui/Button/Button';
 import { SEARCH_MODES, API_LIMITS } from '../../utils/constants';
 import { getErrorMessage } from '../../services/api/httpClient';
-import { translateCategory, translateArea } from '../../data/translations';
 
 const POPULAR_SUGGESTIONS = ['chicken', 'pasta', 'beef', 'salmon', 'egg'];
 
 export function ResultsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const [visibleCount, setVisibleCount] = useState(API_LIMITS.MAX_GRID_ITEMS);
 
   const q = searchParams.get('q') ?? '';
@@ -36,7 +34,7 @@ export function ResultsPage() {
   const filterQuery = !q ? { category: selectedCategories[0], area: selectedAreas[0] } : {};
   const { data: filteredResults, loading: filteredLoading, error: filteredError } = useFilteredRecipes(filterQuery);
 
-  let results = [];
+  let results;
   if (q) {
     results = searchResults;
     if (selectedCategories.length > 0) {
@@ -111,20 +109,18 @@ export function ResultsPage() {
           <div className="results__filters">
             {catNames.length > 0 && (
               <FilterChips
-                options={nameLists.categories}
-                selected={[categoryParam].filter(Boolean)}
-                onToggle={toggleCategory}
+                options={catNames}
+                selected={selectedCategories}
+                onToggle={handleToggleCategory}
                 label="Categoria"
-                formatLabel={translateCategory}
               />
             )}
             {areaNames.length > 0 && (
               <FilterChips
-                options={nameLists.areas}
-                selected={[areaParam].filter(Boolean)}
-                onToggle={toggleArea}
+                options={areaNames}
+                selected={selectedAreas}
+                onToggle={handleToggleArea}
                 label="Origem"
-                formatLabel={translateArea}
               />
             )}
           </div>

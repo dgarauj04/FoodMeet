@@ -38,16 +38,19 @@ export function FilterChips({ options = [], selected = [], onToggle, label, form
         )}
         <div ref={railRef} className="filter-chips__rail rail" onScroll={updateScrollState}>
           {options.map((option) => {
-            const isSelected = selected.includes(option);
+            const value = typeof option === 'string' ? option : option?.value;
+            const displayLabel =
+              formatLabel ? formatLabel(value) : typeof option === 'string' ? option : option?.label ?? value;
+            const isSelected = selected.includes(value);
             return (
               <button
-                key={option}
+                key={value}
                 type="button"
                 className={`filter-chips__chip${isSelected ? ' filter-chips__chip--selected' : ''}`}
                 aria-pressed={isSelected}
-                onClick={() => onToggle(option)}
+                onClick={() => onToggle(value)}
               >
-                {formatLabel ? formatLabel(option) : option}
+                {displayLabel}
                 {isSelected && (
                   <span className="filter-chips__chip-remove" aria-hidden="true">
                     <FiX size={12} />

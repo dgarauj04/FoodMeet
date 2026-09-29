@@ -16,14 +16,31 @@ export function SearchBar({
 
   const isIngredientMode = mode === SEARCH_MODES.INGREDIENT;
 
+  const normalizedSuggestions = Array.isArray(suggestions)
+    ? suggestions
+        .map((suggestion) => {
+          const value = typeof suggestion === 'string' ? suggestion : suggestion?.value;
+          if (typeof value !== 'string' || !value.trim()) return null;
+
+          return {
+            value,
+            label:
+              typeof suggestion === 'object' && typeof suggestion.label === 'string'
+                ? suggestion.label
+                : translateIngredientName(value),
+          };
+        })
+        .filter(Boolean)
+    : [];
+
   const filteredSuggestions =
     isIngredientMode && query.length >= 2
-      ? suggestions
-          .filter((s) => {
+      ? normalizedSuggestions
+          .filter(({ value, label }) => {
             const q = query.toLowerCase();
             return (
-              s.toLowerCase().includes(q) ||
-              translateIngredientName(s).toLowerCase().includes(q)
+              value.toLowerCase().includes(q) ||
+              label.toLowerCase().includes(q)
             );
           })
           .slice(0, API_LIMITS.AUTOCOMPLETE_LIMIT)
@@ -54,10 +71,9 @@ export function SearchBar({
   }
 
   function handleSuggestionClick(suggestion) {
-    const ptLabel = translateIngredientName(suggestion);
-    onQueryChange(ptLabel);
+    onQueryChange(suggestion.label);
     setOpen(false);
-    onSubmit?.(ptLabel);
+    onSubmit?.(suggestion.label);
   }
 
   const placeholder =
@@ -126,7 +142,7 @@ export function SearchBar({
         <div className="search-bar__dropdown" role="listbox" aria-label="Sugestões de ingredientes">
           {filteredSuggestions.map((suggestion) => (
             <button
-              key={suggestion}
+              key={suggestion.value}
               role="option"
               aria-selected="false"
               className="search-bar__suggestion"
@@ -135,9 +151,9 @@ export function SearchBar({
               type="button"
             >
               <span className="search-bar__suggestion-emoji" aria-hidden="true">
-                {getIngredientEmoji(suggestion)} 
+                {getIngredientEmoji(suggestion.value)} 
               </span>
-              {translateIngredientName(suggestion)} 
+              {suggestion.label}
             </button>
           ))}
         </div>
