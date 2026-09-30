@@ -1,6 +1,8 @@
 import { request } from "./httpClient";
 import { toRecipe, toRecipeSummary, toCategory, toNameList } from "./recipeMapper";
 
+const AREA_VALIDATION_CONCURRENCY = 600;
+
 function toRecipeSummaryList(payload) {
   const meals = Array.isArray(payload?.meals) ? payload.meals : [];
   return meals.map(toRecipeSummary).filter(Boolean);
@@ -54,7 +56,7 @@ export async function filterByCategory(category) {
 
 /** Filtro por origem/país. GET /filter.php?a={area} Ex.: "Italian" */
 export async function filterByArea(area) {
-  const data = await request("filter.php", { a: area });
+  const data = await request("filter.php", { a: area }, { useCache: true });
   return toRecipeSummaryList(data);
 }
 
@@ -96,7 +98,26 @@ export async function listCategoryNames() {
 /** Nomes de países/origens. GET /list.php?a=list (popula o filtro) */
 export async function listAreaNames() {
   const data = await request("list.php", { a: "list" }, { useCache: true });
-  return toNameList(data, "strArea");
+  const areas = toNameList(data, "strArea");
+  const availableValues = new Set();
+  let nextIndex = 0;
+
+  async function validateNextArea() {
+    while (nextIndex < areas.length) {
+      const area = areas[nextIndex++];
+      try {
+        const recipes = await filterByArea(area.value);
+        if (recipes.length > 0) availableValues.add(area.value);
+      } catch {
+        // Origins that cannot be loaded are not offered as selectable filters.
+      }
+    }
+  }
+
+  const workerCount = Math.min(AREA_VALIDATION_CONCURRENCY, areas.length);
+  await Promise.all(Array.from({ length: workerCount }, validateNextArea));
+
+  return areas.filter((area) => availableValues.has(area.value));
 }
 
 /**

@@ -20,6 +20,8 @@ export const AREA_TRANSLATIONS = Object.freeze({
   Afghan: "Afegã",
   Algerian: "Argelina",
   Andorran: "Andorrenha",
+  Angolan: "Angolana",
+  "Antiguan, Barbudan": "Antiguense",
   Albanian: "Albanesa",
   Australian: "Australiana",
   Austrian: "Austríaca",
