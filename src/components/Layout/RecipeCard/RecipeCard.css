@@ -1,5 +1,3 @@
-/* src/components/recipes/RecipeCard.css */
-
 .recipe-card {
   border-radius: var(--radius-card);
   background: var(--color-surface);
@@ -16,7 +14,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Imagem */
 .recipe-card__image-wrapper {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -52,7 +49,6 @@
   background: var(--color-surface-alt);
 }
 
-/* Botão de favorito */
 .recipe-card__favorite-btn {
   position: absolute;
   top: 10px;
@@ -82,7 +78,6 @@
   animation: pop 0.3s ease;
 }
 
-/* Botão de comparar */
 .recipe-card__compare-btn {
   position: absolute;
   bottom: 10px;
@@ -111,7 +106,6 @@
   color: #fff;
 }
 
-/* Corpo */
 .recipe-card__body {
   padding: 14px 16px 16px;
   display: flex;

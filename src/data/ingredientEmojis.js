@@ -94,14 +94,6 @@ export const INGREDIENT_EMOJIS = {
 
 const DEFAULT_EMOJI = '🍽️';
 
-/**
- * Retorna o emoji correspondente a um ingrediente.
- * Faz a busca de forma case-insensitive e tenta variações simples
- * (singular/plural, remoção de "fresh", "chopped", etc.) antes de desistir.
- *
- * @param {string} ingredientName - nome do ingrediente (ex: "Chicken Breast")
- * @returns {string} emoji correspondente, ou o emoji padrão se não encontrado
- */
 export function getIngredientEmoji(ingredientName) {
   if (!ingredientName || typeof ingredientName !== 'string') {
     return DEFAULT_EMOJI;

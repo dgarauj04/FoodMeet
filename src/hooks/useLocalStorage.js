@@ -1,11 +1,5 @@
 import { useState, useCallback } from 'react';
 
-/**
- * useState com persistência em localStorage.
- * @param {string} key - Chave do localStorage
- * @param {any} initialValue - Valor inicial (se não houver dado salvo)
- * @returns {[any, Function]} [value, setValue]
- */
 export function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {
     try {

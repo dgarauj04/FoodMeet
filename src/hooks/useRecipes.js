@@ -14,13 +14,6 @@ import { useDebounce } from './useDebounce';
 import { SEARCH_MODES, API_LIMITS, DEFAULT_CATEGORIES } from '../utils/constants';
 import { toEnglishIngredient } from '../data/translations'
 
-/**
- * Busca receitas por nome ou ingrediente com debounce.
- * @param {string} query - Texto da busca
- * @param {string} mode - SEARCH_MODES.NAME | SEARCH_MODES.INGREDIENT
- * @returns {{ data: RecipeSummary[], loading: boolean, error: string|null }}
- */
-
 export function useRecipeSearch(query, mode = SEARCH_MODES.NAME) {
   const debouncedQuery = useDebounce(query, API_LIMITS.SEARCH_DEBOUNCE_MS);
   const [state, setState] = useState({ data: [], loading: false, error: null });
@@ -60,11 +53,6 @@ export function useRecipeSearch(query, mode = SEARCH_MODES.NAME) {
   return state;
 }
 
-/**
- * Carrega o detalhe completo de uma receita por ID.
- * @param {string|number} id
- * @returns {{ data: Recipe|null, loading: boolean, error: string|null }}
- */
 export function useRecipeDetail(id) {
   const [state, setState] = useState({ data: null, loading: true, error: null });
 
@@ -94,10 +82,6 @@ export function useRecipeDetail(id) {
   return state;
 }
 
-/**
- * Carrega uma receita aleatória uma vez no mount.
- * @returns {{ data: Recipe|null, loading: boolean, error: string|null, refresh: Function }}
- */
 export function useRandomRecipe() {
   const [state, setState] = useState({ data: null, loading: true, error: null });
   const [trigger, setTrigger] = useState(0);
@@ -125,10 +109,6 @@ export function useRandomRecipe() {
   return { ...state, refresh };
 }
 
-/**
- * Carrega as categorias. Usa DEFAULT_CATEGORIES como fallback.
- * @returns {{ data: Category[], loading: boolean, error: string|null, usedFallback: boolean }}
- */
 export function useCategories() {
   const [state, setState] = useState({
     data: [],
@@ -175,10 +155,6 @@ export function useCategories() {
   return state;
 }
 
-/**
- * Carrega listas de nomes (categorias, áreas, ingredientes) em paralelo.
- * @returns {{ categories: string[], areas: string[], ingredients: string[], loading: boolean }}
- */
 export function useNameLists() {
   const [state, setState] = useState({
     categories: [],
@@ -211,10 +187,6 @@ export function useNameLists() {
   return state;
 }
 
-/**
- * Carrega receitas em destaque de múltiplas categorias, dedupe e limita a 12.
- * @returns {{ data: RecipeSummary[], loading: boolean, error: string|null }}
- */
 export function useFeaturedRecipes() {
   const [state, setState] = useState({ data: [], loading: true, error: null });
 
@@ -258,11 +230,6 @@ export function useFeaturedRecipes() {
   return state;
 }
 
-/**
- * Busca receitas por categoria ou área (sem query de texto).
- * @param {{ category?: string, area?: string }} filters
- * @returns {{ data: RecipeSummary[], loading: boolean, error: string|null }}
- */
 export function useFilteredRecipes(filters) {
   const { category, area } = filters || {};
   const [state, setState] = useState({ data: [], loading: false, error: null });
@@ -324,11 +291,6 @@ export function useFilteredRecipes(filters) {
   return state;
 }
 
-/**
- * Carrega um par de receitas completas por ID.
- * @param {string[]} ids - Array com exatamente 2 IDs
- * @returns {{ recipes: [Recipe|null, Recipe|null], loading: boolean, error: string|null }}
- */
 export function useRecipePair(ids) {
   const key = (ids ?? []).join(',');
   const [state, setState] = useState({ recipes: [null, null], loading: false, error: null });

@@ -187,7 +187,6 @@ export function RecipeDetailsPage() {
           </div>
         )}
 
-        {/* Modo de preparo */}
         {recipe.steps && recipe.steps.length > 0 && (
           <div className="recipe-details__section">
             <h2 className="recipe-details__section-title">
@@ -204,7 +203,6 @@ export function RecipeDetailsPage() {
           </div>
         )}
 
-        {/* Vídeo */}
         {embedUrl && (
           <div className="recipe-details__section">
             <h2 className="recipe-details__section-title">🎬 Vídeo da receita</h2>
@@ -220,7 +218,6 @@ export function RecipeDetailsPage() {
           </div>
         )}
 
-        {/* Fonte */}
         {recipe.sourceUrl && (
           <p className="recipe-details__source">
             🔗{' '}

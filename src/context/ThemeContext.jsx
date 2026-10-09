@@ -1,16 +1,9 @@
-// src/context/ThemeContext.jsx
-
 import { createContext, useContext, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { STORAGE_KEYS, THEMES } from '../utils/constants';
 
 export const ThemeContext = createContext(null);
 
-/**
- * Provedor de tema (light/dark).
- * Respeita prefers-color-scheme na primeira visita.
- * Aplica data-theme no documentElement.
- */
 export function ThemeProvider({ children }) {
   const prefersDark =
     typeof window !== 'undefined' &&

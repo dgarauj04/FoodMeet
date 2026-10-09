@@ -65,12 +65,34 @@ export function ResultsPage() {
 
   function handleToggleCategory(cat) {
     const current = selectedCategories[0];
-    updateParam('category', current === cat ? '' : cat);
+    const nextVal = current === cat ? '' : cat;
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (nextVal) {
+        next.set('category', nextVal);
+        next.delete('q');
+      } else {
+        next.delete('category');
+      }
+      return next;
+    });
+    setVisibleCount(API_LIMITS.MAX_GRID_ITEMS);
   }
 
   function handleToggleArea(area) {
     const current = selectedAreas[0];
-    updateParam('area', current === area ? '' : area);
+    const nextVal = current === area ? '' : area;
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (nextVal) {
+        next.set('area', nextVal);
+        next.delete('q');
+      } else {
+        next.delete('area');
+      }
+      return next;
+    });
+    setVisibleCount(API_LIMITS.MAX_GRID_ITEMS);
   }
 
   function handleToggleFavorite(recipe) {

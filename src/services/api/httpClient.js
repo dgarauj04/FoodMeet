@@ -20,7 +20,6 @@ export class ApiError extends Error {
   }
 }
 
-/** Monta a URL final: {BASE}/{KEY}/{path}?{query}. Ignora params vazios/null/undefined. */
 function buildUrl(path, params = {}) {
   const url = new URL(`${BASE_URL}/${API_KEY}/${path.replace(/^\//, "")}`);
 
@@ -33,25 +32,13 @@ function buildUrl(path, params = {}) {
   return url;
 }
 
-/**
- * Executa uma requisição GET contra a TheMealDB.
- *
- * @param {string} path          Ex.: "search.php"
- * @param {Object} params        Query params. Ex.: { s: "pie" }
- * @param {Object} [options]
- * @param {boolean} [options.useCache]  Cachear a resposta em memória (listas estáticas).
- * @returns {Promise<Object>} JSON cru da API.
- * @throws {ApiError} type: "network" | "timeout" | "http"
- */
 export async function request(path, params = {}, { useCache = false } = {}) {
   const url = buildUrl(path, params);
 
-  // Cache hit: retorno síncrono (envolvido em Promise pela própria assinatura async)
   if (useCache && cache.has(url.href)) {
     return cache.get(url.href);
   }
 
-  // AbortController: se o fetch ultrapassar o timeout, ele é CANCELADO de verdade.
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 

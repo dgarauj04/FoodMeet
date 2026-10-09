@@ -34,10 +34,6 @@ function parseTags(rawTags) {
   return rawTags.split(",").map((t) => t.trim()).filter(Boolean);
 }
 
-/**
- * Converte UM meal cru (de lookup/random) no modelo Recipe completo.
- * @returns {Recipe|null} null se o payload for inválido (defensivo).
- */
 export function toRecipe(meal = {}) {
   if (!meal || !meal.idMeal) return null;
 

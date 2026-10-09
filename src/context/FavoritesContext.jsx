@@ -1,16 +1,9 @@
-// src/context/FavoritesContext.jsx
-
 import { createContext, useContext, useCallback } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { STORAGE_KEYS } from '../utils/constants';
 
 export const FavoritesContext = createContext(null);
 
-/**
- * Provedor de favoritos.
- * Armazena RecipeSummary[] no localStorage.
- * API: { favorites, isFavorite(id), toggleFavorite(recipeSummary), removeFavorite(id) }
- */
 export function FavoritesProvider({ children }) {
   const [favorites, setFavorites] = useLocalStorage(STORAGE_KEYS.FAVORITES, []);
 
