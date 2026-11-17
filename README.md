@@ -47,7 +47,7 @@ Endpoints utilizados:
 
 ```bash
 # 1. Clonar o repositório
-git clone [https://github.com/dgarauj04/foodmeet.git](https://github.com/dgarauj04/FoodMeet)
+git clone https://github.com/dgarauj04/foodmeet.git
 
 # 2. Entrar na pasta do projeto
 cd foodmeet
